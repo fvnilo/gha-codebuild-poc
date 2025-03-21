@@ -20,7 +20,7 @@ jobs:
           MYSQL_USER: testuser
           MYSQL_PASSWORD: testpassword
         ports:
-          - 3306:3306
+          - 33306:3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=5
 
     steps:
@@ -35,7 +35,8 @@ jobs:
       - name: Run Go script
         working-directory: ./app
         env:
-          DB_HOST: mysql # The name of the service
+          DB_HOST: localhost
+          DB_PORT: 33306
         run: |
          go mod tidy
          go run main.go

@@ -15,10 +15,17 @@ func main() {
 		host = "localhost"
 	}
 
-  log.Printf("Will use [%s] as Database Host", host)
+	port := os.Getenv("DB_PORT")
+	if port == "" {
+		port = "3306"
+	}
+
+
+
+  log.Printf("Will use [%s:%s] as Host", host, port)
 
 	// Define MySQL connection string
-	connectionString := fmt.Sprintf("testuser:testpassword@tcp(%s:3306)/testdb", host)
+	connectionString := fmt.Sprintf("testuser:testpassword@tcp(%s:%s)/testdb", host, port)
 
 	// Open connection to MySQL
 	db, err := sql.Open("mysql", connectionString)
