@@ -14,6 +14,9 @@ func main() {
 	if host == "" {
 		host = "localhost"
 	}
+
+  log.Printf("Will use [%s] as Database Host", host)
+
 	// Define MySQL connection string
 	connectionString := fmt.Sprintf("testuser:testpassword@tcp(%s:3306)/testdb", host)
 

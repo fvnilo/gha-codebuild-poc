@@ -9,5 +9,4 @@ services:
       MYSQL_PASSWORD: testpassword
     ports:
       - "3306:3306"
-    command: --default-authentication-plugin=mysql_native_password --bind-address=0.0.0.0
     restart: unless-stopped
