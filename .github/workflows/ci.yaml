@@ -11,7 +11,7 @@ on:
 jobs:
   test:
     runs-on: codebuild-gha-runner-${{ github.run_id }}-${{ github.run_attempt }}
-    container: golang:1.21
+    container: golang:1.24
     services:
       mysql:
         image: mysql:latest
