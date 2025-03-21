@@ -39,5 +39,6 @@ jobs:
           DB_PORT: 33306
         run: |
          go mod tidy
+         sleep 30
          go run main.go
 
