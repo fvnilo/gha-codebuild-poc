@@ -20,12 +20,21 @@ jobs:
           MYSQL_USER: testuser
           MYSQL_PASSWORD: testpassword
         ports:
-          - 33306:3306
+          - "3306:3306"
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=5
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
+      - name: Wait for MySQL to be ready
+        run: |
+          until mysqladmin ping -h"${DB_HOST}" --silent; do
+            echo "Waiting for MySQL..."
+            sleep 2
+          done
+        env:
+          DB_HOST: 127.0.0.1
 
       - name: Install Go
         uses: actions/setup-go@v4
@@ -36,7 +45,7 @@ jobs:
         working-directory: ./app
         env:
           DB_HOST: localhost
-          DB_PORT: 33306
+          DB_PORT: 3306
         run: |
          go mod tidy
          sleep 30
