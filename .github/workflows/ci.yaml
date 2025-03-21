@@ -11,18 +11,20 @@ on:
 jobs:
   test:
     runs-on: codebuild-gha-runner-${{ github.run_id }}-${{ github.run_attempt }}
+    services:
+      mysql:
+        image: mysql:latest
+        env:
+          MYSQL_ROOT_PASSWORD: rootpassword
+          MYSQL_DATABASE: testdb
+          MYSQL_USER: testuser
+          MYSQL_PASSWORD: testpassword
+      ports:
+        - 3306:3306
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
-      - name: Set up Docker Compose
-        run: docker compose up -d
-
-      - name: Wait for services to be ready
-        run: sleep 10
-
-      - name: List running containers
-        run: docker ps
 
       - name: Install Go
         uses: actions/setup-go@v4
