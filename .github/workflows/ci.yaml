@@ -21,6 +21,7 @@ jobs:
           MYSQL_PASSWORD: testpassword
         ports:
           - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
 
     steps:
       - name: Checkout repository
@@ -36,7 +37,4 @@ jobs:
         run: |
          go mod tidy
          go run main.go
-
-      - name: Tear down Docker Compose
-        run: docker compose down
 
