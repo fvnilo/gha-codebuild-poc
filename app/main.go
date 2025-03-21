@@ -10,7 +10,7 @@ import (
 
 func main() {
 	// Define MySQL connection string
-	dsn := "testuser:testpassword@tcp(mysql-service:3306)/testdb"
+	dsn := "testuser:testpassword@tcp(localhost:3306)/testdb"
 
 	// Open connection to MySQL
 	db, err := sql.Open("mysql", dsn)
